@@ -9,16 +9,17 @@ namespace Trainer_v5.Actions
 	public static class MiscActions
 	{
 		private static GameSettings Settings => GameSettings.Instance;
+		internal static bool RewardIsGained { get; set; }
+		internal static bool DealIsPushed { get; set; }
 
 		public static void ClearLoans()
 		{
 			Settings.Loans.Clear();
-			HUD.Instance.AddPopupMessage("Trainer: All loans are cleared!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+			HUD.Instance.AddPopupMessage(Constants.AllLoansClearedMessageKey.LocDef(Constants.AllLoansClearedMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 		}
 
 		public static void PushReward()
 		{
-			// Assuming ServerDeal is accessible or defined elsewhere
 			var Deals = HUD.Instance.dealWindow.GetActiveDeals().Where(deal => deal is ServerDeal).ToArray();
 
 			if (!Deals.Any())
@@ -28,11 +29,10 @@ namespace Trainer_v5.Actions
 
 			for (int i = 0; i < Deals.Length; i++)
 			{
-				// Use Helpers.Random if it's accessible or pass Random instance
 				Settings.MyCompany.MakeTransaction(Helpers.Random.Next(500, 50000), Company.TransactionCategory.Deals);
 			}
 
-			Helpers.RewardIsGained = true;
+			RewardIsGained = true;
 		}
 
 		public static void PushDeal()
@@ -49,7 +49,6 @@ namespace Trainer_v5.Actions
 				return;
 
 			int index = Helpers.Random.Next(0, Products.Length);
-			// Assuming ServerDeal is accessible
 			var dealExist = HUD.Instance.dealWindow.AllDeals.Values.Any(x => x is ServerDeal && ((ServerDeal)x).Product.Name == Products[index].Name);
 			if (!dealExist)
 			{
@@ -59,7 +58,7 @@ namespace Trainer_v5.Actions
 
 				HUD.Instance.dealWindow.InsertDeal(deal);
 
-				Helpers.DealIsPushed = true;
+				DealIsPushed = true;
 			}
 		}
 
@@ -70,8 +69,8 @@ namespace Trainer_v5.Actions
 				return;
 			}
 
-			Example.TakeAllLand(); // Assuming Example class is accessible
-			HUD.Instance.AddPopupMessage("Trainer: All plots has been unlocked!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+			Example.TakeAllLand();
+			HUD.Instance.AddPopupMessage(Constants.AllPlotsUnlockedMessageKey.LocDef(Constants.AllPlotsUnlockedMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 		}
 
 		public static void UnlockFurniture()
@@ -81,13 +80,11 @@ namespace Trainer_v5.Actions
 				return;
 			}
 
-			Example.UnlockFurniture(); // Assuming Example class is accessible
-			Cheats.UnlockFurn = true; // Assuming Cheats class is accessible
+			Example.UnlockFurniture();
+			Cheats.UnlockFurn = true;
 			HUD.Instance.UpdateFurnitureButtons();
-			HUD.Instance.AddPopupMessage("Trainer: All furniture has been unlocked!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+			HUD.Instance.AddPopupMessage(Constants.AllFurnitureUnlockedMessageKey.LocDef(Constants.AllFurnitureUnlockedMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 		}
-
-		#region MonthDays
 
 		public static void MonthDaysAction(string input)
 		{
@@ -98,17 +95,14 @@ namespace Trainer_v5.Actions
 			}
 
 			GameSettings.DaysPerMonth = i;
-			WindowManager.SpawnDialog("You have changed days per month. Please restart the game.", false, DialogWindow.DialogType.Warning);
+			WindowManager.SpawnDialog(Constants.MonthDaysRestartWarningKey.LocDef(Constants.MonthDaysRestartWarningText), false, DialogWindow.DialogType.Warning);
 		}
 
 		public static void MonthDays()
 		{
-			WindowManager.SpawnInputDialog("How many days per month do you want?", "Days per month", "2", MonthDaysAction);
+			WindowManager.SpawnInputDialog(Constants.MonthDaysPromptKey.LocDef(Constants.MonthDaysPromptText),
+				Constants.MonthDaysTitleKey.LocDef(Constants.MonthDaysTitleText), "2", MonthDaysAction);
 		}
-
-		#endregion
-
-		#region Extend Deadline
 
 		public static void ExtendDeadline()
 		{
@@ -119,26 +113,19 @@ namespace Trainer_v5.Actions
 				var deadline = contract.Deadline;
 				contract.Deadline = new SDateTime(deadline.Year + 1, deadline.Month, deadline.Day);
 			}
-			HUD.Instance.AddPopupMessage("Trainer: Deadlines extended by 1 year for active contracts!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+			HUD.Instance.AddPopupMessage(Constants.DeadlinesExtendedMessageKey.LocDef(Constants.DeadlinesExtendedMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 		}
-
-		#endregion
-
-		#region Increase Money
 
 		public static void IncreaseMoneyAction(string input)
 		{
 			Settings.MyCompany.MakeTransaction(input.ConvertToIntDef(100000), Company.TransactionCategory.Deals);
-			HUD.Instance.AddPopupMessage("Trainer: Money has been added in category Deals!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+			HUD.Instance.AddPopupMessage(Constants.MoneyAddedMessageKey.LocDef(Constants.MoneyAddedMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 		}
 		public static void IncreaseMoney()
 		{
-			WindowManager.SpawnInputDialog("How much money do you want to add?", "Add Money", "100000", IncreaseMoneyAction);
+			WindowManager.SpawnInputDialog(Constants.AddMoneyPromptKey.LocDef(Constants.AddMoneyPromptText),
+				Constants.AddMoneyTitleKey.LocDef(Constants.AddMoneyTitleText), "100000", IncreaseMoneyAction);
 		}
-
-		#endregion
-
-		#region Add Rep
 
 		public static void MaxReputation()
 		{
@@ -152,12 +139,13 @@ namespace Trainer_v5.Actions
 					Settings.MyCompany.ChangeBusinessRep(1f, "Lawsuit", 1f);
 					Settings.MyCompany.ChangeBusinessRep(1f, "Contract", 1f);
 					Settings.MyCompany.ChangeBusinessRep(1f, "Hosting", 1f);
-					WindowManager.SpawnDialog("Trainer: Max reputation is applied to all categories", false, DialogWindow.DialogType.Information);
+					WindowManager.SpawnDialog(Constants.MaxReputationAppliedMessageKey.LocDef(Constants.MaxReputationAppliedMessageText), false, DialogWindow.DialogType.Information);
 				}
 			};
 
-			// Use the private helper method defined below
-			AreYouSureAction("Are you sure you want to max out all business reputations?", action);
+			string question = string.Format(Constants.AreYouSurePromptKey.LocDef(Constants.AreYouSurePromptText),
+				Constants.MaxRepConfirmActionKey.LocDef(Constants.MaxRepConfirmActionText));
+			AreYouSureAction(question, action);
 		}
 
 		public static void MaxMarketRecognition()
@@ -167,36 +155,26 @@ namespace Trainer_v5.Actions
 			{
 				foreach (var category in softwareType.Categories.ToList())
 				{
-					Example.AddReputation(softwareType.Name, category.Key, int.MaxValue); // Assuming Example class is accessible
+					Example.AddReputation(softwareType.Name, category.Key, int.MaxValue);
 				}
 			}
 
-			WindowManager.SpawnDialog("Trainer: Max market recognition is applied to all software types and categories.", false, DialogWindow.DialogType.Information);
+			WindowManager.SpawnDialog(Constants.MaxMarketRecognitionAppliedMessageKey.LocDef(Constants.MaxMarketRecognitionAppliedMessageText), false, DialogWindow.DialogType.Information);
 		}
-
-		#endregion
-
-		#region UnlockAllRewards
 
 		public static void UnlockAndClaimAllRewards()
 		{
-			// Assuming GameData is accessible
 			GameSettings.Instance.CompletedTasks.AddRange(GameData.Tasks.Select(x => x.Name));
 			GameSettings.Instance.ClaimedRewards.AddRange(GameData.Tasks.Select(x => x.Name));
 			HUD.Instance.RefreshBuildButtons();
 
-			WindowManager.SpawnDialog("Trainer: All rewards are unlocked and claimed.", false, DialogWindow.DialogType.Information);
+			WindowManager.SpawnDialog(Constants.AllRewardsUnlockedMessageKey.LocDef(Constants.AllRewardsUnlockedMessageText), false, DialogWindow.DialogType.Information);
 		}
 
-		#endregion
-
-		// Private helper for confirmation dialogs
 		private static void AreYouSureAction(string question, Action<string> confirmationAction)
 		{
-			WindowManager.SpawnInputDialog(question, "Confirmation", "YES", confirmationAction);
+			WindowManager.SpawnInputDialog(question, Constants.ConfirmationTitleKey.LocDef(Constants.ConfirmationTitleText), "YES", confirmationAction);
 		}
-
-		#region Experimental/Test
 
 		public static void Test()
 		{
@@ -216,12 +194,12 @@ namespace Trainer_v5.Actions
 							designDocument.Features[index].Qual = 1f;
 							designDocument.Features[index].LastIterationProg = 1f;
 						}
-						DevConsole.Console.Log(designDocument.GetProgress()); // Assuming DevConsole is accessible
+						DevConsole.Console.Log(designDocument.GetProgress());
 						designDocument.Iteration++;
 					}
 				}
 			}
-			HUD.Instance.AddPopupMessage("Trainer: Test action executed (Design Doc Iteration).", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+			HUD.Instance.AddPopupMessage(Constants.DesignDocIterationTestExecutedMessageKey.LocDef(Constants.DesignDocIterationTestExecutedMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 		}
 
 
@@ -233,20 +211,19 @@ namespace Trainer_v5.Actions
 
 			if (workItem == null)
 			{
-				WindowManager.SpawnDialog($"Trainer: Alpha product '{input}' (not in beta) not found.", false, DialogWindow.DialogType.Error);
+				WindowManager.SpawnDialog(string.Format(Constants.AlphaProductNotFoundMessageKey.LocDef(Constants.AlphaProductNotFoundMessageText), input), false, DialogWindow.DialogType.Error);
 				return;
 			}
 
 			var softwareAlpha = ((SoftwareAlpha)workItem);
 			softwareAlpha.AddQuality(10f, 10f, false);
-			HUD.Instance.AddPopupMessage($"Trainer: Test action executed (Add Quality) for '{input}'.", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+			HUD.Instance.AddPopupMessage(string.Format(Constants.AddQualityTestExecutedMessageKey.LocDef(Constants.AddQualityTestExecutedMessageText), input), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 		}
 
 		public static void TestButton()
 		{
-			WindowManager.SpawnInputDialog("Type product name in alpha (not beta):", "Add Quality (Test)", "", TestAction);
+			WindowManager.SpawnInputDialog(Constants.AddQualityPromptKey.LocDef(Constants.AddQualityPromptText),
+				Constants.AddQualityTitleKey.LocDef(Constants.AddQualityTitleText), "", TestAction);
 		}
-
-		#endregion
 	}
 }

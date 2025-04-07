@@ -5,7 +5,9 @@ using OrbCreationExtensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Trainer_v5.Actions;
-using Random = System.Random; // Keep alias
+using Trainer_v5.Configuration;
+using Trainer_v5.UI.Helpers;
+using Random = System.Random;
 
 namespace Trainer_v5
 {
@@ -14,57 +16,56 @@ namespace Trainer_v5
 		private static bool _specializationsLoaded;
 		private float _defaultEnvironmentISPCostFactor;
 		private static float[] _edCost = new float[3] { 600f, 2000f, 5000f };
+		private Random _randomInstance;
 
 		private static GameSettings Settings => GameSettings.Instance;
-		private static Dictionary<string, bool> TrainerSettings => Helpers.Settings;
-		private static Dictionary<string, object> StoresSettings => Helpers.StoresSettings;
+		private static Dictionary<string, bool> TrainerSettingsRef => TrainerSettings.Settings;
+		private static Dictionary<string, object> StoresSettingsRef => TrainerSettings.StoresSettings;
 
-		// Properties to simplify settings access
-		private bool LockAgeEnabled => Helpers.GetProperty(TrainerSettings, "LockAge");
-		private bool NoiseReductionEnabled => Helpers.GetProperty(TrainerSettings, "NoiseReduction");
-		private bool NoWaterElectricityEnabled => Helpers.GetProperty(TrainerSettings, "NoWaterElectricity");
-		private bool DisableFiresEnabled => Helpers.GetProperty(TrainerSettings, "DisableFires");
-		private bool IncreaseBookshelfSkillEnabled => Helpers.GetProperty(TrainerSettings, "IncreaseBookshelfSkill");
-		private bool NoMaintenanceEnabled => Helpers.GetProperty(TrainerSettings, "NoMaintenance");
-		private bool DisableFurnitureStealingEnabled => Helpers.GetProperty(TrainerSettings, "DisableFurnitureStealing");
-		private bool CleanRoomsEnabled => Helpers.GetProperty(TrainerSettings, "CleanRooms");
-		private bool TemperatureLockEnabled => Helpers.GetProperty(TrainerSettings, "TemperatureLock");
-		private bool FullEnvironmentEnabled => Helpers.GetProperty(TrainerSettings, "FullEnvironment");
-		private bool FullRoomBrightnessEnabled => Helpers.GetProperty(TrainerSettings, "FullRoomBrightness");
-		private bool NoSicknessEnabled => Helpers.GetProperty(TrainerSettings, "NoSickness");
-		private bool NoStressEnabled => Helpers.GetProperty(TrainerSettings, "NoStress");
-		private bool FullSatisfactionEnabled => Helpers.GetProperty(TrainerSettings, "FullSatisfaction");
-		private bool NoNeedsEnabled => Helpers.GetProperty(TrainerSettings, "NoNeeds");
-		private bool FreeEmployeesEnabled => Helpers.GetProperty(TrainerSettings, "FreeEmployees");
-		private bool NoVacationEnabled => Helpers.GetProperty(TrainerSettings, "NoVacation");
-		private bool MoreInspirationEnabled => Helpers.GetProperty(TrainerSettings, "MoreInspiration");
-		private bool MoreCreativityEnabled => Helpers.GetProperty(TrainerSettings, "MoreCreativity");
-		private bool IncreaseWalkSpeedEnabled => Helpers.GetProperty(TrainerSettings, "IncreaseWalkSpeed");
-		private bool MoreHostingDealsEnabled => Helpers.GetProperty(TrainerSettings, "MoreHostingDeals");
-		private bool DisableBurglarsEnabled => Helpers.GetProperty(TrainerSettings, "DisableBurglars");
-		private bool AutoEndDesignEnabled => Helpers.GetProperty(TrainerSettings, "AutoEndDesign");
-		private bool AutoEndResearchEnabled => Helpers.GetProperty(TrainerSettings, "AutoEndResearch");
-		private bool AutoEndPatentEnabled => Helpers.GetProperty(TrainerSettings, "AutoEndPatent");
-		private bool FreePrintEnabled => Helpers.GetProperty(TrainerSettings, "FreePrint");
-		private bool IncreasePrintSpeedEnabled => Helpers.GetProperty(TrainerSettings, "IncreasePrintSpeed");
-		private bool NoEducationCostEnabled => Helpers.GetProperty(TrainerSettings, "NoEducationCost");
-		private bool FreeStaffEnabled => Helpers.GetProperty(TrainerSettings, "FreeStaff");
-		private bool NoServerCostEnabled => Helpers.GetProperty(TrainerSettings, "NoServerCost");
-		private bool DisableFireInspectionEnabled => Helpers.GetProperty(TrainerSettings, "DisableFireInspection");
-		private bool DisableForcePauseEnabled => Helpers.GetProperty(TrainerSettings, "DisableForcePause");
-		private bool DisableForceFreezeEnabled => Helpers.GetProperty(TrainerSettings, "DisableForceFreeze");
-		private bool AutoResearchStartEnabled => Helpers.GetProperty(TrainerSettings, "AutoResearchStart");
-		private bool DigitalDistributionMonopolyEnabled => Helpers.GetProperty(TrainerSettings, "DigitalDistributionMonopol");
-		private bool AutoAcceptHostingDealsEnabled => Helpers.GetProperty(TrainerSettings, "AutoAcceptHostingDeals");
-		private bool IncreaseCourierCapacityEnabled => Helpers.GetProperty(TrainerSettings, "IncreaseCourierCapacity");
-		private bool ReduceBoxPriceEnabled => Helpers.GetProperty(TrainerSettings, "ReduceBoxPrice");
-		private bool ReduceISPCostEnabled => Helpers.GetProperty(TrainerSettings, "ReduceISPCost");
-		private bool ReduceExpansionCostEnabled => Helpers.GetProperty(TrainerSettings, "ReduceExpansionCost");
-
+		private bool LockAgeEnabled => TrainerSettings.GetBool(TrainerSettings.LockAge);
+		private bool NoiseReductionEnabled => TrainerSettings.GetBool(TrainerSettings.NoiseReduction);
+		private bool NoWaterElectricityEnabled => TrainerSettings.GetBool(TrainerSettings.NoWaterElectricity);
+		private bool DisableFiresEnabled => TrainerSettings.GetBool(TrainerSettings.DisableFires);
+		private bool IncreaseBookshelfSkillEnabled => TrainerSettings.GetBool(TrainerSettings.IncreaseBookshelfSkill);
+		private bool NoMaintenanceEnabled => TrainerSettings.GetBool(TrainerSettings.NoMaintenance);
+		private bool DisableFurnitureStealingEnabled => TrainerSettings.GetBool(TrainerSettings.DisableFurnitureStealing);
+		private bool CleanRoomsEnabled => TrainerSettings.GetBool(TrainerSettings.CleanRooms);
+		private bool TemperatureLockEnabled => TrainerSettings.GetBool(TrainerSettings.TemperatureLock);
+		private bool FullEnvironmentEnabled => TrainerSettings.GetBool(TrainerSettings.FullEnvironment);
+		private bool FullRoomBrightnessEnabled => TrainerSettings.GetBool(TrainerSettings.FullRoomBrightness);
+		private bool NoSicknessEnabled => TrainerSettings.GetBool(TrainerSettings.NoSickness);
+		private bool NoStressEnabled => TrainerSettings.GetBool(TrainerSettings.NoStress);
+		private bool FullSatisfactionEnabled => TrainerSettings.GetBool(TrainerSettings.FullSatisfaction);
+		private bool NoNeedsEnabled => TrainerSettings.GetBool(TrainerSettings.NoNeeds);
+		private bool FreeEmployeesEnabled => TrainerSettings.GetBool(TrainerSettings.FreeEmployees);
+		private bool NoVacationEnabled => TrainerSettings.GetBool(TrainerSettings.NoVacation);
+		private bool MoreInspirationEnabled => TrainerSettings.GetBool(TrainerSettings.MoreInspiration);
+		private bool MoreCreativityEnabled => TrainerSettings.GetBool(TrainerSettings.MoreCreativity);
+		private bool IncreaseWalkSpeedEnabled => TrainerSettings.GetBool(TrainerSettings.IncreaseWalkSpeed);
+		private bool MoreHostingDealsEnabled => TrainerSettings.GetBool(TrainerSettings.MoreHostingDeals);
+		private bool DisableBurglarsEnabled => TrainerSettings.GetBool(TrainerSettings.DisableBurglars);
+		private bool AutoEndDesignEnabled => TrainerSettings.GetBool(TrainerSettings.AutoEndDesign);
+		private bool AutoEndResearchEnabled => TrainerSettings.GetBool(TrainerSettings.AutoEndResearch);
+		private bool AutoEndPatentEnabled => TrainerSettings.GetBool(TrainerSettings.AutoEndPatent);
+		private bool FreePrintEnabled => TrainerSettings.GetBool(TrainerSettings.FreePrint);
+		private bool IncreasePrintSpeedEnabled => TrainerSettings.GetBool(TrainerSettings.IncreasePrintSpeed);
+		private bool NoEducationCostEnabled => TrainerSettings.GetBool(TrainerSettings.NoEducationCost);
+		private bool FreeStaffEnabled => TrainerSettings.GetBool(TrainerSettings.FreeStaff);
+		private bool NoServerCostEnabled => TrainerSettings.GetBool(TrainerSettings.NoServerCost);
+		private bool DisableFireInspectionEnabled => TrainerSettings.GetBool(TrainerSettings.DisableFireInspection);
+		private bool DisableForcePauseEnabled => TrainerSettings.GetBool(TrainerSettings.DisableForcePause);
+		private bool DisableForceFreezeEnabled => TrainerSettings.GetBool(TrainerSettings.DisableForceFreeze);
+		private bool AutoResearchStartEnabled => TrainerSettings.GetBool(TrainerSettings.AutoResearchStart);
+		private bool DigitalDistributionMonopolyEnabled => TrainerSettings.GetBool(TrainerSettings.DigitalDistributionMonopol);
+		private bool AutoAcceptHostingDealsEnabled => TrainerSettings.GetBool(TrainerSettings.AutoAcceptHostingDeals);
+		private bool IncreaseCourierCapacityEnabled => TrainerSettings.GetBool(TrainerSettings.IncreaseCourierCapacity);
+		private bool ReduceBoxPriceEnabled => TrainerSettings.GetBool(TrainerSettings.ReduceBoxPrice);
+		private bool ReduceISPCostEnabled => TrainerSettings.GetBool(TrainerSettings.ReduceISPCost);
+		private bool ReduceExpansionCostEnabled => TrainerSettings.GetBool(TrainerSettings.ReduceExpansionCost);
 
 		private void Start()
 		{
-			Helpers.Random = new Random();
+			_randomInstance = new Random();
 
 			if (!isActiveAndEnabled)
 			{
@@ -90,8 +91,7 @@ namespace Trainer_v5
 						break;
 					case "MainScene":
 						Main.CreateUIButtons();
-						DetailWindowTrainer.Install();
-						InitializeTrainerStateOnLoad(); // Initialize state specific to MainScene load
+						InitializeTrainerStateOnLoad();
 						SubscribeToEvents();
 						break;
 					case "Customization":
@@ -109,7 +109,6 @@ namespace Trainer_v5
 			TimeOfDay.OnHourPassed += OnHourPassed;
 			TimeOfDay.OnDayPassed += OnDayPassed;
 			TimeOfDay.OnMonthPassed += OnMonthPassed;
-			// Yearly event doesn't exist in TimeOfDay, will skip for now.
 		}
 
 		private void UnsubscribeFromEvents()
@@ -118,8 +117,6 @@ namespace Trainer_v5
 			TimeOfDay.OnDayPassed -= OnDayPassed;
 			TimeOfDay.OnMonthPassed -= OnMonthPassed;
 		}
-
-		// --- Time-Based Event Handlers ---
 
 		private void OnHourPassed(object obj, EventArgs args)
 		{
@@ -131,8 +128,6 @@ namespace Trainer_v5
 			ApplyHourlyTimedEvents();
 		}
 
-		// --- Hourly Update Helper Methods ---
-
 		private void ApplyHourlyWorkItemUpdates()
 		{
 			if (AutoEndDesignEnabled)
@@ -140,7 +135,7 @@ namespace Trainer_v5
 				var designDocuments = Settings.MyCompany.WorkItems
 									.OfType<DesignDocument>()
 									.Where(d => d.HasFinished)
-									.ToList(); // ToList to avoid modification issues during iteration
+									.ToList();
 
 				designDocuments.ForEach(designDocument => designDocument.PromoteAction());
 			}
@@ -154,7 +149,6 @@ namespace Trainer_v5
 
 				researchWorks.ForEach(researchWork =>
 				{
-					// Simplified logic from original code
 					Settings.MyCompany.AddResearch(researchWork.Spec, researchWork.Year);
 					TechLevel tech = Settings.simulation.AddTechLevel(researchWork.Spec, researchWork.Year, SDateTime.Now(), true);
 					if (tech != null)
@@ -190,7 +184,7 @@ namespace Trainer_v5
 		{
 			if (DisableBurglarsEnabled)
 			{
-				foreach (var burglar in Settings.sActorManager.Others["Burglars"].ToList()) // ToList for safe removal
+				foreach (var burglar in Settings.sActorManager.Others["Burglars"].ToList())
 				{
 					burglar.Despawned = true;
 					Settings.sActorManager.RemoveFromAwaiting(burglar);
@@ -215,26 +209,25 @@ namespace Trainer_v5
 			{
 				int inGameHour = TimeOfDay.Instance.Hour;
 
-				if ((inGameHour == 9 || inGameHour == 15) && !Helpers.DealIsPushed)
+				if ((inGameHour == 9 || inGameHour == 15) && !MiscActions.DealIsPushed)
 				{
 					MiscActions.PushDeal();
 				}
-				else if (inGameHour != 9 && inGameHour != 15 && Helpers.DealIsPushed)
+				else if (inGameHour != 9 && inGameHour != 15 && MiscActions.DealIsPushed)
 				{
-					Helpers.DealIsPushed = false;
+					MiscActions.DealIsPushed = false;
 				}
 
-				if (!Helpers.RewardIsGained && inGameHour == 12)
+				if (!MiscActions.RewardIsGained && inGameHour == 12)
 				{
 					MiscActions.PushReward();
 				}
-				else if (inGameHour != 12 && Helpers.RewardIsGained)
+				else if (inGameHour != 12 && MiscActions.RewardIsGained)
 				{
-					Helpers.RewardIsGained = false;
+					MiscActions.RewardIsGained = false;
 				}
 			}
 		}
-
 
 		private void OnDayPassed(object obj, EventArgs args)
 		{
@@ -246,14 +239,12 @@ namespace Trainer_v5
 			ApplyDailyWorldSettingsUpdates();
 		}
 
-		// --- Daily Update Helper Methods ---
-
 		private void ApplyDailyActorUpdates()
 		{
 			bool noSicknessDaily = NoSicknessEnabled;
 			if (noSicknessDaily)
 			{
-				TimeOfDay.Instance.Sick.Clear(); // Clear global list
+				TimeOfDay.Instance.Sick.Clear();
 			}
 
 			for (int i = 0; i < Settings.sActorManager.Actors.Count; i++)
@@ -292,18 +283,10 @@ namespace Trainer_v5
 			{
 				Settings.ProductPrinters.ForEach(p => p.PrintPrice = 0f);
 			}
-			else
-			{
-				// TODO: Add reset logic for PrintPrice
-			}
 
 			if (IncreasePrintSpeedEnabled)
 			{
 				Settings.ProductPrinters.ForEach(p => p.PrintSpeed = 2f);
-			}
-			else
-			{
-				// TODO: Add reset logic for PrintSpeed
 			}
 
 			if (NoEducationCostEnabled)
@@ -337,7 +320,6 @@ namespace Trainer_v5
 			Settings.ExpansionCost = ReduceExpansionCostEnabled ? 175f : 350f;
 		}
 
-
 		private void OnMonthPassed(object obj, EventArgs args)
 		{
 			if (!isActiveAndEnabled || !Helpers.IsGameLoaded) return;
@@ -345,8 +327,6 @@ namespace Trainer_v5
 			ApplyMonthlyActorUpdates();
 			ApplyMonthlyCompanyUpdates();
 		}
-
-		// --- Monthly Update Helper Methods ---
 
 		private void ApplyMonthlyActorUpdates()
 		{
@@ -394,9 +374,6 @@ namespace Trainer_v5
 			}
 		}
 
-
-		// --- Update Loop (Per Frame) ---
-
 		private void Update()
 		{
 			if (!isActiveAndEnabled || !Helpers.IsGameLoaded)
@@ -412,99 +389,123 @@ namespace Trainer_v5
 			ApplyFrameWorldSettingsUpdates();
 		}
 
-		// --- Frame Update Helper Methods ---
-
 		private void ApplyFrameActorUpdates()
 		{
-			for (int i = 0; i < Settings.sActorManager.Actors.Count; i++)
+			if (!Settings?.sActorManager?.Actors.Any() ?? true) return;
+
+			foreach (var actor in Settings.sActorManager.Actors)
 			{
-				Actor actor = Settings.sActorManager.Actors[i];
-				Employee employee = actor.employee;
+				if (actor?.employee == null) continue;
 
-				actor.WalkSpeed = IncreaseWalkSpeedEnabled ? 4f : 2f;
+				UpdateSingleActorFrame(actor, actor.employee);
+			}
+		}
 
-				if (NoStressEnabled)
-				{
-					employee.Stress = 0f;
-				}
+		private void UpdateSingleActorFrame(Actor actor, Employee employee)
+		{
+			actor.WalkSpeed = IncreaseWalkSpeedEnabled ? 4f : 2f;
 
-				// Apply efficiency based on role and settings
-				float? efficiency = null;
-				if (employee.RoleString.Contains("Lead") && Helpers.GetProperty(StoresSettings, "LeadEfficiencyStore") != null)
-				{
-					efficiency = Helpers.GetProperty(StoresSettings, "LeadEfficiencyStore").MakeFloat();
-				}
-				else if (!employee.RoleString.Contains("Lead") && Helpers.GetProperty(StoresSettings, "EfficiencyStore") != null)
-				{
-					efficiency = Helpers.GetProperty(StoresSettings, "EfficiencyStore").MakeFloat();
-				}
-				if (efficiency.HasValue)
-				{
-					actor.Effectiveness = efficiency.Value;
-				}
+			if (NoiseReductionEnabled)
+			{
+				actor.Noisiness = 0;
+			}
 
-				if (FullSatisfactionEnabled)
-				{
-					employee.JobSatisfaction = 2f;
-					employee.ActiveComplaint = false;
+			if (MoreInspirationEnabled)
+			{
+				employee.LastInpirationUse = new SDateTime(0);
+			}
 
-					List<string> keysToRemove = new List<string>();
-					if (employee.Thoughts != null)
+			if (MoreCreativityEnabled)
+			{
+				employee.RevealCreativity(1f);
+			}
+
+			UpdateEmployeeFrameProperties(actor, employee);
+		}
+
+		private void UpdateEmployeeFrameProperties(Actor actor, Employee employee)
+		{
+			if (NoStressEnabled)
+			{
+				employee.Stress = 0f;
+			}
+
+			float? efficiency = GetEfficiency(employee, StoresSettingsRef);
+			if (efficiency.HasValue)
+			{
+				actor.Effectiveness = efficiency.Value;
+			}
+
+			if (FullSatisfactionEnabled)
+			{
+				UpdateEmployeeSatisfaction(actor, employee);
+			}
+
+			if (NoNeedsEnabled)
+			{
+				UpdateEmployeeNeeds(actor, employee);
+			}
+
+			if (FreeEmployeesEnabled)
+			{
+				if (actor != null) actor.NegotiateSalary = false;
+			}
+		}
+
+		private void UpdateEmployeeSatisfaction(Actor actor, Employee employee)
+		{
+			employee.JobSatisfaction = 2f;
+			employee.ActiveComplaint = false;
+
+			if (employee.Thoughts != null && employee.Thoughts.Count > 0)
+			{
+				List<string> keysToRemove = new List<string>();
+				List<string> currentKeys = new List<string>(employee.Thoughts.Keys);
+
+				foreach (string key in currentKeys)
+				{
+					Employee.ThoughtEffect thought;
+					if (employee.Thoughts.TryGetValue(key, out thought))
 					{
-						List<string> currentKeys = new List<string>(employee.Thoughts.Keys);
-						foreach (string key in currentKeys)
+						if (thought != null && thought.Mood != null &&
+							(thought.Mood.Negative || thought.Mood.Sue || !string.IsNullOrEmpty(thought.Mood.QuitReason)))
 						{
-							Employee.ThoughtEffect thought;
-							if (employee.Thoughts.TryGetValue(key, out thought))
-							{
-								if (thought.Mood.Negative || thought.Mood.Sue || !string.IsNullOrEmpty(thought.Mood.QuitReason))
-								{
-									keysToRemove.Add(key);
-								}
-							}
+							keysToRemove.Add(key);
 						}
 					}
-					foreach (string keyToRemove in keysToRemove)
-					{
-						if (employee.Thoughts != null)
-						{
-							employee.Thoughts.Remove(keyToRemove);
-						}
-					}
-					employee.SetMood("LoveWork", actor, 1f);
 				}
 
-				if (NoNeedsEnabled)
+				foreach (string key in keysToRemove)
 				{
-					actor.NextSmell = 0f;
-					employee.Bladder = 1f;
-					employee.Hunger = 1f;
-					employee.Energy = 1f;
-					employee.Social = 1f;
-					employee.Posture = 1f;
-					employee.ActiveComplaint = false;
-					employee.HadProperFood = true;
+					employee.Thoughts.Remove(key);
 				}
+			}
+			employee.SetMood("LoveWork", actor, 1f);
+		}
 
-				if (FreeEmployeesEnabled)
-				{
-					actor.NegotiateSalary = false;
-				}
+		private void UpdateEmployeeNeeds(Actor actor, Employee employee)
+		{
+			if (actor != null) actor.NextSmell = 0f;
+			employee.Bladder = 1f;
+			employee.Hunger = 1f;
+			employee.Energy = 1f;
+			employee.Social = 1f;
+			employee.Posture = 1f;
+			employee.ActiveComplaint = false;
+			employee.HadProperFood = true;
+		}
 
-				if (NoiseReductionEnabled)
-				{
-					actor.Noisiness = 0;
-				}
-
-				if (MoreInspirationEnabled)
-				{
-					employee.LastInpirationUse = new SDateTime(0);
-				}
-
-				if (MoreCreativityEnabled)
-				{
-					employee.RevealCreativity(1f);
-				}
+		private float? GetEfficiency(Employee employee, Dictionary<string, object> storesSettings)
+		{
+			if (employee.RoleString.Contains("Lead"))
+			{
+				object setting = storesSettings.Get(TrainerSettings.LeadEfficiencyStore);
+				return setting?.MakeFloat();
+			}
+			else
+			{
+				object setting = storesSettings.Get(TrainerSettings.EfficiencyStore);
+				return setting?.MakeFloat();
 			}
 		}
 
@@ -540,11 +541,6 @@ namespace Trainer_v5
 				if (DisableFurnitureStealingEnabled)
 				{
 					furniture.CanSteal = false;
-				}
-				else
-				{
-					// Optionally reset CanSteal if the setting is disabled
-					// furniture.CanSteal = true;
 				}
 
 				if (DisableFiresEnabled)
@@ -612,8 +608,6 @@ namespace Trainer_v5
 			}
 		}
 
-		// --- Input Handling ---
-
 		private void HandleInput()
 		{
 			if (Input.GetKey(KeyCode.F1))
@@ -626,8 +620,6 @@ namespace Trainer_v5
 				Main.CloseSettingsWindow();
 			}
 		}
-
-		// --- Initialization ---
 
 		private void InitializeTrainerStateOnLoad()
 		{
@@ -642,8 +634,6 @@ namespace Trainer_v5
 				_defaultEnvironmentISPCostFactor = Settings.Environment.ISPCostFactor;
 			}
 		}
-
-        // --- Helper Methods ---
 
         private void StartAutoResearch()
         {
@@ -683,7 +673,6 @@ namespace Trainer_v5
                 if (company == Settings.MyCompany || company.Distribution == null || !company.Distribution.Open)
                     continue;
 
-                // Apply monopoly effects
                 company.Distribution.SetCut(1f);
                 company.Distribution.SetAutoAcceptClients(false);
                 company.Distribution.AvailableBandwidth = 0f;
@@ -702,9 +691,8 @@ namespace Trainer_v5
             var serverGroups = Settings.GetAllServerGroups().ToList();
             if (serverGroups.Count == 0) return;
 
-            // Find the most powerful server group (consider caching this if it's expensive)
             ServerGroup mostPowerfulServerGroup = serverGroups.OrderByDescending(sg => sg.PowerSum).FirstOrDefault();
-            if (mostPowerfulServerGroup == null) return; // Should not happen if serverGroups.Count > 0
+            if (mostPowerfulServerGroup == null) return;
 
             var availableServerDeals = HUD.Instance.dealWindow.AllDeals.Values.OfType<ServerDeal>().ToList();
             if (availableServerDeals.Count == 0) return;
@@ -712,7 +700,7 @@ namespace Trainer_v5
             var activeServerDealProducts = HUD.Instance.dealWindow.GetActiveDeals()
                                              .OfType<ServerDeal>()
                                              .Select(d => d.Product)
-                                             .ToHashSet(); // Use HashSet for efficient lookup
+                                             .ToHashSet();
 
             foreach (var serverDeal in availableServerDeals)
             {
@@ -727,14 +715,14 @@ namespace Trainer_v5
 
 		private static void LoadSpecializations()
 		{
-			if (Helpers.SpecializationsList != null && Helpers.SpecializationsList.Count() > 0)
+			if (TrainerSettings.SpecializationsList != null && TrainerSettings.SpecializationsList.Count() > 0)
 			{
 				return;
 			}
 
 			var specializations = new Dictionary<string, bool>();
 
-			foreach (var role in Helpers.RolesList)
+			foreach (var role in TrainerSettings.RolesList)
 			{
 				foreach (var specialization in Settings.GetAllSpecializations(role.Key.ToEmployeeRole()))
 				{
@@ -745,14 +733,14 @@ namespace Trainer_v5
 				}
 			}
 
-			Helpers.SpecializationsList = specializations;
+			TrainerSettings.SpecializationsList = specializations;
 
 			_specializationsLoaded = true;
 		}
 
-		public static void ShowDiscordInvite(bool displayAsPopup = false)
+		private void ShowDiscordInvite(bool displayAsPopup = false)
 		{
-			string message = "Join us on our discord server\nhttps://discord.gg/NQpm5kn";
+			string message = string.Format(Constants.DiscordInviteMessageKey.LocDef(Constants.DiscordInviteMessageText), Helpers.DiscordUrl);
 			if (displayAsPopup)
 			{
 				HUD.Instance.AddPopupMessage(message, "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
@@ -766,28 +754,28 @@ namespace Trainer_v5
 		public static void SetSkillPerEmployeeAction(string input)
 		{
 			var selectedActors = SelectorController.Instance.Selected.OfType<Actor>().ToList();
-			var selectedRoles = Helpers.RolesList.Where(r => r.Value).ToList();
-			var selectedSpecializations = Helpers.SpecializationsList.Where(s => s.Value).ToList();
+			var selectedRoles = TrainerSettings.RolesList.Where(r => r.Value).ToList();
+			var selectedSpecializations = TrainerSettings.SpecializationsList.Where(s => s.Value).ToList();
 
 			int amount;
 			if (selectedActors.Count == 0)
 			{
-				WindowManager.SpawnDialog("Select one or more employees.", false, DialogWindow.DialogType.Error);
+				UIHelper.ShowError(Constants.SelectEmployeeErrorKey.LocDef(Constants.SelectEmployeeErrorText));
 				return;
 			}
 			else if (selectedRoles.Count == 0)
 			{
-				WindowManager.SpawnDialog("Select one or more roles.", false, DialogWindow.DialogType.Error);
+				UIHelper.ShowError(Constants.SelectRoleErrorKey.LocDef(Constants.SelectRoleErrorText));
 				return;
 			}
 			else if (selectedSpecializations.Count == 0)
 			{
-				WindowManager.SpawnDialog("Select one or more specializations.", false, DialogWindow.DialogType.Error);
+				UIHelper.ShowError(Constants.SelectSpecializationErrorKey.LocDef(Constants.SelectSpecializationErrorText));
 				return;
 			}
 			else if (!int.TryParse(input, out amount) || amount == 0 || amount < -3 || amount > 3)
 			{
-				WindowManager.SpawnDialog("Invalid input!\nAllowed inputs are: -3, -2, -1, 1, 2, 3", false, DialogWindow.DialogType.Error);
+				UIHelper.ShowError(Constants.InvalidSkillAmountErrorKey.LocDef(Constants.InvalidSkillAmountErrorText));
 				return;
 			}
 			else
@@ -796,8 +784,6 @@ namespace Trainer_v5
 				{
 					foreach (var role in selectedRoles)
 					{
-						//actor.employee.ChangeSkillDirect(role.Key.ToEmployeeRole(), 1f);
-
 						foreach (var specialization in selectedSpecializations)
 						{
 							actor.employee.AddSpecialization(role.Key.ToEmployeeRole(), specialization.Key, false, true, amount);
@@ -805,88 +791,20 @@ namespace Trainer_v5
 					}
 				});
 
-				HUD.Instance.AddPopupMessage("Trainer: Employee skills/specializations are set!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+				HUD.Instance.AddPopupMessage(Constants.EmployeeSkillsSetMessageKey.LocDef(Constants.EmployeeSkillsSetMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 			}
 		}
 
 		public static void SetSkillPerEmployee()
 		{
-			WindowManager.SpawnInputDialog("How many specialization stars do you want?\nMin = -3, Max = 3", "Stars amount", "3", SetSkillPerEmployeeAction);
+			WindowManager.SpawnInputDialog(Constants.SetSkillPromptKey.LocDef(Constants.SetSkillPromptText),
+				Constants.SetSkillTitleKey.LocDef(Constants.SetSkillTitleText),
+				"3",
+				SetSkillPerEmployeeAction);
 		}
 
-		// ClearLoans moved to Actions/MiscActions.cs
-		// PushReward moved to Actions/MiscActions.cs
-		// PushDeal moved to Actions/MiscActions.cs
-		// Test moved to Actions/MiscActions.cs
-		// AIBankrupt moved to Actions/CompanyActions.cs
+		public override void OnActivate() { }
 
-		public static void HREmployees()
-		{
-			if (!Helpers.IsGameLoaded || SelectorController.Instance == null)
-			{
-				return;
-			}
-
-			Actor[] Actors = Settings.sActorManager.Actors
-									 .Where(actor => actor.employee.RoleString.Contains("Lead"))
-									 .ToArray();
-
-			if (Actors.Length == 0)
-			{
-				return;
-			}
-
-			for (var i = 0; i < Actors.Length; i++)
-			{
-				Actors[i].employee.SetSpecialization(Actors[i].employee.GetRoleOrNatural(), "HR", 5);
-			}
-
-			HUD.Instance.AddPopupMessage("Trainer: All leaders are now HRed!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0, 1);
-		}
-
-		// SellProductStock moved to Actions/ProductActions.cs
-		// RemoveSoft moved to Actions/ProductActions.cs
-		// ResetAgeOfEmployees moved to Actions/EmployeeActions.cs
-		// EmployeesToMax moved to Actions/EmployeeActions.cs
-		// UnlockAllSpace moved to Actions/MiscActions.cs
-		// UnlockFurniture moved to Actions/MiscActions.cs
-		// HREmployees moved to Actions/EmployeeActions.cs
-		// SetSkillPerEmployeeAction moved to Actions/EmployeeActions.cs
-		// SetSkillPerEmployee moved to Actions/EmployeeActions.cs
-		// MonthDaysAction moved to Actions/MiscActions.cs
-		// MonthDays moved to Actions/MiscActions.cs
-		// ExtendDeadline moved to Actions/MiscActions.cs
-		// FixBugsAction moved to Actions/ProductActions.cs
-		// FixBugs moved to Actions/ProductActions.cs
-		// MaxFollowersAction moved to Actions/ProductActions.cs
-		// MaxFollowers moved to Actions/ProductActions.cs
-		// SetProductPriceAction moved to Actions/ProductActions.cs
-		// SetProductPrice moved to Actions/ProductActions.cs
-		// SetProductStockAction moved to Actions/ProductActions.cs
-		// SetProductStock moved to Actions/ProductActions.cs
-		// AddActiveUsersAction moved to Actions/ProductActions.cs
-		// AddActiveUsers moved to Actions/ProductActions.cs
-		// TakeoverCompanyAction moved to Actions/CompanyActions.cs
-		// TakeoverCompany moved to Actions/CompanyActions.cs
-		// SubDCompanyAction moved to Actions/CompanyActions.cs
-		// SubDCompany moved to Actions/CompanyActions.cs
-		// ForceBankruptAction moved to Actions/CompanyActions.cs
-		// ForceBankrupt moved to Actions/CompanyActions.cs
-		// IncreaseMoneyAction moved to Actions/MiscActions.cs
-		// IncreaseMoney moved to Actions/MiscActions.cs
-		// MaxReputation moved to Actions/MiscActions.cs
-		// MaxMarketRecognition moved to Actions/MiscActions.cs
-		// UnlockAndClaimAllRewards moved to Actions/MiscActions.cs
-		// AreYouSureAction moved to Actions/MiscActions.cs (as private helper)
-		// TestAction moved to Actions/MiscActions.cs
-		// TestButton moved to Actions/MiscActions.cs
-
-		#region Overrides
-
-		public override void OnActivate() { /* Mandatory but not needed */ }
-
-		public override void OnDeactivate() { /* Mandatory but not needed */ }
-
-		#endregion
+		public override void OnDeactivate() { }
 	}
 }

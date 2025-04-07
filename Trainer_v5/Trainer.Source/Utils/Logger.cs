@@ -1,7 +1,7 @@
-﻿﻿﻿﻿using System;
+using System;
 using System.Globalization;
 
-namespace Trainer_v5
+namespace Trainer_v5.Utils
 {
 	public static class Logger
 	{
@@ -33,9 +33,9 @@ namespace Trainer_v5
 			if (ex.InnerException != null)
 			{
 				ConsoleLog("--- Inner Exception ---");
-				ex.InnerException.LogException();
+				ex.InnerException.LogException(); // Recursive call
 				ConsoleLog("--- End Inner Exception ---");
 			}
 		}
 	}
-}
+} 

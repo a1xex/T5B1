@@ -1,7 +1,10 @@
-﻿﻿﻿﻿﻿﻿using System.Linq;
+﻿﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Trainer_v5;
+using Trainer_v5.Configuration;
+using Trainer_v5.UI.Windows;
+using Trainer_v5.UI.Helpers;
+using Trainer_v5.UI.Extensions;
 
 namespace Trainer_v5
 {
@@ -34,8 +37,8 @@ namespace Trainer_v5
 
 		public static void CreateUIButtons()
 		{
-			TrainerButton = UIHelper.CreateButton(Helpers.TrainerVersion, () => SettingsWindow.Toggle(), "TrainerButton").GetComponent<Button>();
-			SkillChangeButton = UIHelper.CreateButton("Skill Change", () => EmployeeSkillChangeWindow.Show(), "EmployeeSkillButton").GetComponent<Button>();
+			TrainerButton = UIHelper.CreateButton(Helpers.TrainerVersion, () => SettingsWindow.Toggle(), Constants.TrainerButtonName).GetComponent<Button>();
+			SkillChangeButton = UIHelper.CreateButton(Constants.EmployeeSkillButtonKey.LocDef(Constants.EmployeeSkillButtonText), () => EmployeeSkillChangeWindow.Show(), Constants.EmployeeSkillButtonName).GetComponent<Button>();
 
 			TrainerButton.gameObject.AddToElement("MainPanel/Holder/FanPanel", new Rect(164, 0, 100, 32));
 			SkillChangeButton.gameObject.AddToElement("ActorWindow/ContentPanel/Panel", new Rect(0, 0, 100, 32));
@@ -44,7 +47,8 @@ namespace Trainer_v5
 		public override void ConstructOptionsScreen(RectTransform parent, bool inGame)
 		{
 			Text label = WindowManager.SpawnLabel();
-			label.text = "Please load the game and press 'Trainer' button.";
+			label.text = Constants.OptionsScreenInfoKey.LocDef(Constants.OptionsScreenInfoText);
+			label.name = Constants.OptionsScreenLabelName;
 
 			WindowManager.AddElementToElement(label.gameObject, parent.gameObject, new Rect(0, 0, 400, 128),
 					new Rect(0, 0, 0, 0));
@@ -53,14 +57,14 @@ namespace Trainer_v5
 		public override WriteDictionary Serialize(GameReader.LoadMode mode)
 		{
 			var data = new WriteDictionary();
-			foreach (var setting in Helpers.Settings)
+			foreach (var setting in TrainerSettings.Settings)
 			{
-				data[setting.Key] = Helpers.GetProperty(Helpers.Settings, setting.Key);
+				data[setting.Key] = TrainerSettings.GetProperty(TrainerSettings.Settings, setting.Key);
 			}
 
-			foreach (var store in Helpers.StoresSettings)
+			foreach (var store in TrainerSettings.StoresSettings)
 			{
-				data[store.Key] = Helpers.GetProperty(Helpers.StoresSettings, store.Key);
+				data[store.Key] = TrainerSettings.GetProperty(TrainerSettings.StoresSettings, store.Key);
 			}
 
 			return data;
@@ -68,16 +72,16 @@ namespace Trainer_v5
 
 		public override void Deserialize(WriteDictionary data, GameReader.LoadMode mode)
 		{
-			var settings = Helpers.Settings.Keys.ToList();
+			var settings = TrainerSettings.Settings.Keys.ToList();
 			foreach (var setting in settings)
 			{
-				Helpers.SetProperty(Helpers.Settings, setting, data.Get(setting, Helpers.GetProperty(Helpers.Settings, setting)));
+				TrainerSettings.SetProperty(TrainerSettings.Settings, setting, data.Get(setting, TrainerSettings.GetProperty(TrainerSettings.Settings, setting)));
 			}
 
-			var stores = Helpers.StoresSettings.Keys.ToList();
+			var stores = TrainerSettings.StoresSettings.Keys.ToList();
 			foreach (var store in stores)
 			{
-				Helpers.SetProperty(Helpers.StoresSettings, store, data.Get(store, Helpers.GetProperty(Helpers.StoresSettings, store)));
+				TrainerSettings.SetProperty(TrainerSettings.StoresSettings, store, data.Get(store, TrainerSettings.GetProperty(TrainerSettings.StoresSettings, store)));
 			}
 		}
 	}

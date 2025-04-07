@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using Trainer_v5.Configuration;
 
 namespace Trainer_v5.Actions
 {
@@ -17,7 +18,7 @@ namespace Trainer_v5.Actions
 				actor.UpdateAgeLook();
 			}
 
-			HUD.Instance.AddPopupMessage("Trainer: Employees age has been reset!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+			HUD.Instance.AddPopupMessage(Constants.EmployeeAgeResetMessageKey.LocDef(Constants.EmployeeAgeResetMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 		}
 
 		public static void EmployeesToMax()
@@ -55,7 +56,7 @@ namespace Trainer_v5.Actions
 				}
 			}
 
-			HUD.Instance.AddPopupMessage("Trainer: All employees are now max skilled!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0, 1);
+			HUD.Instance.AddPopupMessage(Constants.AllEmployeesMaxSkilledMessageKey.LocDef(Constants.AllEmployeesMaxSkilledMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0, 1);
 		}
 
 		public static void HREmployees()
@@ -79,34 +80,34 @@ namespace Trainer_v5.Actions
 				Actors[i].employee.SetSpecialization(Actors[i].employee.GetRoleOrNatural(), "HR", 5);
 			}
 
-			HUD.Instance.AddPopupMessage("Trainer: All leaders are now HRed!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0, 1);
+			HUD.Instance.AddPopupMessage(Constants.LeadersHRSetMessageKey.LocDef(Constants.LeadersHRSetMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0, 1);
 		}
 
 		public static void SetSkillPerEmployeeAction(string input)
 		{
 			var selectedActors = SelectorController.Instance.Selected.OfType<Actor>().ToList();
-			var selectedRoles = Helpers.RolesList.Where(r => r.Value).ToList();
-			var selectedSpecializations = Helpers.SpecializationsList.Where(s => s.Value).ToList();
+			var selectedRoles = TrainerSettings.RolesList.Where(r => r.Value).ToList();
+			var selectedSpecializations = TrainerSettings.SpecializationsList.Where(s => s.Value).ToList();
 
 			int amount;
 			if (selectedActors.Count == 0)
 			{
-				WindowManager.SpawnDialog("Select one or more employees.", false, DialogWindow.DialogType.Error);
+				WindowManager.SpawnDialog(Constants.SelectEmployeeErrorKey.LocDef(Constants.SelectEmployeeErrorText), false, DialogWindow.DialogType.Error);
 				return;
 			}
 			else if (selectedRoles.Count == 0)
 			{
-				WindowManager.SpawnDialog("Select one or more roles.", false, DialogWindow.DialogType.Error);
+				WindowManager.SpawnDialog(Constants.SelectRoleErrorKey.LocDef(Constants.SelectRoleErrorText), false, DialogWindow.DialogType.Error);
 				return;
 			}
 			else if (selectedSpecializations.Count == 0)
 			{
-				WindowManager.SpawnDialog("Select one or more specializations.", false, DialogWindow.DialogType.Error);
+				WindowManager.SpawnDialog(Constants.SelectSpecializationErrorKey.LocDef(Constants.SelectSpecializationErrorText), false, DialogWindow.DialogType.Error);
 				return;
 			}
 			else if (!int.TryParse(input, out amount) || amount == 0 || amount < -3 || amount > 3)
 			{
-				WindowManager.SpawnDialog("Invalid input!\nAllowed inputs are: -3, -2, -1, 1, 2, 3", false, DialogWindow.DialogType.Error);
+				WindowManager.SpawnDialog(Constants.InvalidSkillAmountErrorKey.LocDef(Constants.InvalidSkillAmountErrorText), false, DialogWindow.DialogType.Error);
 				return;
 			}
 			else
@@ -115,8 +116,6 @@ namespace Trainer_v5.Actions
 				{
 					foreach (var role in selectedRoles)
 					{
-						//actor.employee.ChangeSkillDirect(role.Key.ToEmployeeRole(), 1f);
-
 						foreach (var specialization in selectedSpecializations)
 						{
 							actor.employee.AddSpecialization(role.Key.ToEmployeeRole(), specialization.Key, false, true, amount);
@@ -124,13 +123,16 @@ namespace Trainer_v5.Actions
 					}
 				});
 
-				HUD.Instance.AddPopupMessage("Trainer: Employee skills/specializations are set!", "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
+				HUD.Instance.AddPopupMessage(Constants.EmployeeSkillsSetMessageKey.LocDef(Constants.EmployeeSkillsSetMessageText), "Cogs", PopupManager.PopUpAction.None, 0, 0, 0, 0);
 			}
 		}
 
 		public static void SetSkillPerEmployee()
 		{
-			WindowManager.SpawnInputDialog("How many specialization stars do you want?\nMin = -3, Max = 3", "Stars amount", "3", SetSkillPerEmployeeAction);
+			WindowManager.SpawnInputDialog(Constants.SetSkillPromptKey.LocDef(Constants.SetSkillPromptText),
+				Constants.SetSkillTitleKey.LocDef(Constants.SetSkillTitleText),
+				"3",
+				SetSkillPerEmployeeAction);
 		}
 	}
 }

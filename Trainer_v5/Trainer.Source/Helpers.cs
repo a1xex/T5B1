@@ -1,6 +1,7 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿using System;
+using Trainer_v5.Configuration;
 using System.Collections.Generic;
-using OrbCreationExtensions;
+using System.Linq;
 
 namespace Trainer_v5
 {
@@ -13,196 +14,43 @@ namespace Trainer_v5
 		public static string TrainerVersion => $"Trainer v{Version}";
 		public static bool IsDebug => false;
 		public static string DiscordUrl => "https://discord.com/invite/J584aG";
+		public static System.Random Random = new System.Random();
 
-		public static Random Random { get; set; }
-		public static bool RewardIsGained { get; set; }
-		public static bool DealIsPushed { get; set; }
-		public static string ProductPriceName { get; set; }
-		public static Dictionary<string, bool> SpecializationsList { get; set; }
+		#region Traits
+		public static IEnumerable<Employee.Trait> Traits
+			=> Enum.GetValues(typeof(Employee.Trait)).Cast<Employee.Trait>();
 
-		public static Dictionary<string, object> EfficiencySelectItems => new Dictionary<string, object>
+		public static IEnumerable<Employee.Trait> GoodTraits
+			=> Traits.Where(t => 0 != (Employee.GoodTraits & t));
+
+		public static IEnumerable<Employee.Trait> NeutralTraits
+			=> Traits.Where(t => 0 != (Employee.NeutralTraits & t));
+
+		public static IEnumerable<Employee.Trait> BadTraits
+			=> Traits.Where(t => 0 != (Employee.BadTraits & t));
+
+		public static bool IsGood(this Employee.Trait self)
 		{
-			{"Default", null},
-			{"100%", 1},
-			{"200%", 2},
-			{"500%", 5},
-			{"1000%", 10},
-			{"2000%", 20},
-			{"4000%", 40},
-			{"8000%", 80}
-		};
-
-		public static Dictionary<string, bool> Settings { get; } = new Dictionary<string, bool>
-		{
-			{"NoStress", false},
-			{"NoVacation", false},
-			{"FullRoomBrightness", false},
-			{"CleanRooms", false},
-			{"FullEnvironment", false},
-			{"NoiseReduction", false},
-			{"FreeStaff", false},
-			{"TemperatureLock", false},
-			{"NoWaterElectricity", false},
-			{"NoNeeds", false},
-			{"FreeEmployees", false},
-			{"LockAge", false},
-			{"MoreHostingDeals", false},
-			{"IncreaseCourierCapacity", false},
-			{"ReduceISPCost", false},
-			{"IncreasePrintSpeed", false},
-			{"FreePrint", false},
-			{"IncreaseBookshelfSkill", false},
-			{"NoMaintenance", false},
-			{"NoSickness", false},
-			{"FullSatisfaction", false},
-			{"DisableSkillDecay", false},
-			{"DisableBurglars", false},
-			{"DisableFires", false},
-			{"NoServerCost", false},
-			{"ReduceExpansionCost", false},
-			{"NoEducationCost", false},
-			{"IncreaseWalkSpeed", false},
-			{"AutoEndDesign", false},
-			{"AutoEndResearch", false},
-			{"AutoEndPatent", false},
-			{"ReduceBoxPrice", false},
-			{"DisableFurnitureStealing", false},
-			{"MoreInspiration", false},
-			{"MoreCreativity", false},
-			{"AutoResearchStart", false},
-			{"DigitalDistributionMonopol", false},
-			{"DisableFireInspection", false},
-			{"DisableForcePause", false},
-			{"DisableForceFreeze", false},
-			{"AutoAcceptHostingDeals", false},
-			{"Experimental", false},
-		};
-
-		public static Dictionary<string, bool> RolesList { get; } = new Dictionary<string, bool>
-		{
-			{"Lead", false},
-			{"Service", false},
-			{"Programmer", false},
-			{"Artist", false},
-			{"Designer", false}
-		};
-
-		public static Dictionary<string, object> StoresSettings { get; } = new Dictionary<string, object>
-		{
-			{"EfficiencyStore", null},
-			{"LeadEfficiencyStore", null}
-		};
-
-		#region methods
-
-		public static bool GetProperty(Dictionary<string, bool> properties, string key)
-		{
-			bool value;
-			if (properties.TryGetValue(key, out value))
-			{
-				return value;
-			}
-			return false;
+			return (self & Employee.GoodTraits) > 0;
 		}
 
-		public static object GetProperty(Dictionary<string, object> properties, string key)
+		public static bool IsNeutral(this Employee.Trait self)
 		{
-			object value;
-			if (properties.TryGetValue(key, out value))
-			{
-				return value;
-			}
-			return null;
+			return (self & Employee.NeutralTraits) > 0;
 		}
 
-		public static void SetProperty(Dictionary<string, bool> properties, string key, bool value)
+		public static bool IsBad(this Employee.Trait self)
 		{
-			properties[key] = value;
-		}
-
-		public static void SetProperty(Dictionary<string, object> properties, string key, object value)
-		{
-			properties[key] = value;
-		}
-
-		public static int GetIndex(List<KeyValuePair<string, object>> values, Dictionary<string, object> properties, string store, ValueDataTypeEnum valueType)
-		{
-			try
-			{
-				object propertyValue = GetProperty(properties, store);
-				if (propertyValue == null)
-				{
-					$"Property '{store}' not found or is null in GetIndex.".Log();
-					return -1; // Or a default index like 0 if appropriate
-				}
-
-				switch (valueType)
-				{
-					case ValueDataTypeEnum.Int:
-						int intValue = propertyValue.MakeInt();
-						return values.FindIndex(x => x.Value != null && x.Value.MakeInt() == intValue);
-					case ValueDataTypeEnum.Float:
-						float floatValue = propertyValue.MakeFloat();
-						return values.FindIndex(x => x.Value != null && x.Value.MakeFloat() == floatValue);
-					case ValueDataTypeEnum.String:
-						string stringValue = propertyValue.MakeString();
-						// Handle potential nulls in the list values as well
-						return values.FindIndex(x => x.Value != null && x.Value.MakeString() == stringValue);
-					case ValueDataTypeEnum.Bool:
-						bool boolValue = propertyValue.MakeBool();
-						return values.FindIndex(x => x.Value != null && x.Value.MakeBool() == boolValue);
-					default:
-						$"Method GetIndex received an unknown value type: {valueType}".Log();
-						return -1;
-				}
-			}
-			catch (Exception ex)
-			{
-				$"Error in GetIndex for store '{store}' and type '{valueType}'".Log();
-				ex.LogException();
-				return -1;
-			}
-		}
-
-
-		public static void TryExecute(Action action)
-		{
-			try
-			{
-				action.Invoke();
-			}
-			catch (Exception ex)
-			{
-				ex.LogException();
-			}
+			return (self & Employee.BadTraits) > 0;
 		}
 
 		#endregion
 
-		#region extensions
+		#region LeadDesign Demands
 
-		public static Employee.EmployeeRole ToEmployeeRole(this string str)
-		{
-			return (Employee.EmployeeRole)Enum.Parse(typeof(Employee.EmployeeRole), str);
-		}
+		public static IEnumerable<LeadDesignDemands.Demand> Demands
+			=> Enum.GetValues(typeof(LeadDesignDemands.Demand)).Cast<LeadDesignDemands.Demand>();
 
 		#endregion
-
-		public static string GetGameVersion()
-		{
-#if !SWINCBETA && !SWINCRELEASE
-			return "1.6";
-#elif SWINCBETA1_7
-			return "1.7";
-#elif SWINCBETA1_8
-			return "1.8";
-#elif SWINCBETA1_9
-			return "1.9";
-#elif SWINCBETA1_10
-			return "1.10";
-#else
-			return "UNKNOWN";
-#endif
-		}
 	}
 }

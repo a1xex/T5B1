@@ -192,4 +192,4 @@ InvalidBaseSkillAmountErrorKey      "Invalid input. Please enter a number betwee
 SelectLeadSpecErrorKey              "Select one or more LeadSpec."
 InvalidLeadSpecAmountErrorKey       "Invalid input. Please enter a number between 0.0 and 1.0."
 InvalidInputMinValueErrorKey        "Invalid input!\nmin value is {0}"
-InvalidInputMaxValueErrorKey        "Invalid input!\nmax value is {0}"
+InvalidInputMaxValueErrorKey        "Invalid input!\nmax value is {0}" 

@@ -1,0 +1,195 @@
+# Input fields
+ProductName                         "Nome del prodotto qui"
+
+# Window Titles
+EmployeeSkillChangeTitleKey         "Modifica abilità dipendente, di Trawis"
+EditTraitsTitleKey                  "Modifica tratti per {0}"
+EditTraitsDefaultTitleKey          "Modifica tratti"
+EditDemandsTitleKey                 "Modifica richieste per {0}"
+EditDemandsDefaultTitleKey         "Modifica richieste"
+EditLeadSpecTitleKey                "Modifica specializzazione leader per {0}"
+EditLeadSpecDefaultTitleKey        "Modifica specializzazione leader"
+TakeoverCompanyTitleKey             "Acquisisci Azienda"
+SubsidiaryTitleKey                  "Rendi Filiale"
+ForceBankruptTitleKey               "Attiva/Disattiva Fallimento Forzato"
+MonthDaysTitleKey                   "Giorni per mese"
+AddMoneyTitleKey                    "Aggiungi denaro"
+ConfirmationTitleKey                "Conferma"
+AddQualityTitleKey                  "Aggiungi Qualità (Test)"
+FixBugsTitleKey                     "Correggi Bug"
+MaxFollowersTitleKey                "Followers massimi"
+SetPriceNameTitleKey                "Imposta Prezzo Prodotto - Nome"
+SetPriceAmountTitleKey              "Imposta Prezzo Prodotto - Prezzo"
+SetStockNameTitleKey                "Imposta Stock Prodotto - Nome"
+SetStockAmountTitleKey              "Imposta Stock Prodotto - Quantità"
+SetActiveUsersNameTitleKey          "Imposta Utenti Attivi - Nome"
+SetActiveUsersAmountTitleKey        "Imposta Utenti Attivi - Quantità"
+SetSkillTitleKey                    "Numero di stelle"
+SetBaseSkillTitleKey                "Imposta abilità base per {0} attore/i"
+SetLeadSpecTitleKey                 "Imposta {0} Spec. Leader per {1}"
+
+
+# Labels
+RolesKey                            "Ruoli"
+SpecializationsKey                 "Specializzazioni"
+GoodTraitsKey                       "Buono"
+NeutralTraitsKey                    "Neutro"
+BadTraitsKey                        "Cattivo"
+DemandsKey                          "Richieste"
+LeadSpecKey                         "Spec. Leader"
+OptionsScreenInfoKey                "Carica il gioco e premi il pulsante 'Trainer'."
+EfficiencyKey                       "Efficienza"
+LeadEfficiencyKey                   "Efficienza leader"
+SkillChangeKey                      "Modifica abilità"
+
+
+# Action Buttons
+AddMoneyKey                         "Aggiungi denaro"
+MaxReputationKey                    "Reputazione massima"
+SetProductPriceKey                  "Imposta prezzo prodotto"
+SetProductStockKey                  "Imposta stock prodotto"
+AddActiveUsersKey                   "Imposta utenti attivi"
+MaxFollowersKey                     "Followers massimi"
+FixBugsKey                          "Correggi bug"
+TakeoverCompanyKey                  "Acquisisci azienda"
+SubDCompanyKey                      "Filiale"
+ForceBankruptKey                    "Bankrupt" # Placeholder
+MonthDaysKey                        "Month Days" # Placeholder
+ClearLoansKey                       "Clear Loans" # Placeholder
+MaxMarketRecognitionKey             "Max Market Recognition" # Placeholder
+ResetAgeKey                         "Reset Employees Age" # Placeholder
+SellProductStockKey                 "Sell Product Stock" # Placeholder
+UnlockFurnitureKey                  "Sblocca tutti i mobili"
+UnlockAllSpaceKey                   "Sblocca tutto lo spazio"
+UnlockAndClaimRewardsKey            "Sblocca e riscuoti ricompense"
+ExtendDeadlineKey                   "Estendi scadenza"
+TestKey                             "Test"
+TestButtonKey                       "Pulsante test"
+HREmployeesKey                      "Imposta spec. HR su leader"
+EmployeesToMaxKey                   "Max. abilità dipendenti"
+SetSkillsKey                       "Imposta abilità"
+SetBaseSkillsKey                   "Imposta abilità base"
+SetLeadSpecKey                     "Imposta spec. leader"
+AllKey                              "Tutto"
+NoneKey                             "Nessuno"
+RefreshKey                          "Aggiorna"
+EmployeeSkillButtonKey              "Pulsante abilità dipendente"
+
+
+# Toggle Options
+NoNeedsKey                          "Disattiva bisogni"
+NoStressKey                         "Disattiva stress"
+FreeEmployeesKey                    "Dipendenti gratuiti"
+FreeStaffKey                        "Staff gratuito"
+FullSatisfactionKey                 "Soddisfazione massima"
+LockAgeKey                          "Blocca età"
+NoVacationKey                       "No vacanze"
+NoSicknessKey                       "No malattie"
+FullEnvironmentKey                  "Ambiente massimo"
+FullRoomBrightnessKey               "Luce massima"
+TemperatureLockKey                  "Blocca temperatura a 21"
+NoMaintenanceKey                    "No manutenzione"
+NoiseReductionKey                   "Riduzione rumore"
+CleanRoomsKey                       "Clean Rooms" # Placeholder
+NoEducationCostKey                  "No Education Cost" # Placeholder
+DisableFiresKey                     "Disattiva incendi"
+AutoEndDesignKey                    "Auto End Design" # Placeholder
+AutoEndResearchKey                  "Auto End Research" # Placeholder
+AutoEndPatentKey                    "Auto End Patent" # Placeholder
+IncreaseWalkSpeedKey                "Increase Walk Speed" # Placeholder
+FreePrintKey                        "Free Print" # Placeholder
+NoWaterElectricityKey               "No Water Electricity" # Placeholder
+IncreaseBookshelfSkillKey           "Increase Bookshelf Skill" # Placeholder
+IncreaseCourierCapacityKey          "Increase Courier Capacity" # Placeholder
+IncreasePrintSpeedKey               "Increase Print Speed" # Placeholder
+MoreHostingDealsKey                 "More Hosting Deals" # Placeholder
+ReduceISPCostKey                    "Reduce ISP Cost" # Placeholder
+NoServerCostKey                     "No Server Cost" # Placeholder
+ReduceExpansionCostKey              "Reduce Expansion Cost" # Placeholder
+ReduceBoxPriceKey                   "Reduce Box Price" # Placeholder
+DisableFireInspectionKey            "Disattiva ispezione incendi"
+DisableForcePauseKey                "Disattiva pausa forzata"
+DisableForceFreezeKey               "Disattiva blocco forzato"
+AutoAcceptHostingDealsKey           "Auto-accetta offerte hosting"
+DisableBurglarsKey                  "Disattiva ladri"
+ExperimentalKey                     "Funzionalità sperimentali"
+MoreCreativityKey                   "Più creatività"
+DisableFurnitureStealingKey         "Disattiva furto mobili"
+AutoResearchStartKey                "Avvio auto ricerca"
+DigitalDistributionMonopolKey       "Monopolio distribuzione digitale"
+
+
+# Messages
+AllLoansClearedMessageKey           "Trainer: Tutti i prestiti sono stati cancellati!"
+AllPlotsUnlockedMessageKey          "Trainer: Tutti i lotti sono stati sbloccati!"
+AllFurnitureUnlockedMessageKey      "Trainer: Tutti i mobili sono stati sbloccati!"
+DeadlinesExtendedMessageKey         "Trainer: Scadenze estese di 1 anno per i contratti attivi!"
+MoneyAddedMessageKey                "Trainer: Il denaro è stato aggiunto nella categoria Offerte!"
+MaxReputationAppliedMessageKey      "Trainer: Reputazione massima applicata a tutte le categorie"
+MaxMarketRecognitionAppliedMessageKey "Trainer: Riconoscimento massimo del mercato applicato a tutti i tipi di software e categorie."
+AllRewardsUnlockedMessageKey        "Trainer: Tutte le ricompense sono state sbloccate e riscosse."
+DesignDocIterationTestExecutedMessageKey "Trainer: Azione di test eseguita (Iterazione Doc. Design)."
+AddQualityTestExecutedMessageKey    "Trainer: Azione di test eseguita (Aggiungi Qualità) per '{0}'."
+SellStockMessageKey                 "Lo stock dei prodotti senza utenti attivi è stato venduto a metà prezzo."
+RemoveSoftDisabledMessageKey        "La funzione RemoveSoft è attualmente disabilitata (segnata come rotta nel codice originale)."
+BugsFixedMessageKey                 "Trainer: Tutti i bug corretti per '{0}'!"
+FollowersMaxedMessageKey            "Trainer: Followers massimizzati per '{0}'!"
+PriceSetMessageKey                  "Trainer: Prezzo per '{0}' impostato a {1:C}!"
+StockSetMessageKey                  "Trainer: Stock per '{0}' impostato a {1}!"
+ActiveUsersSetMessageKey            "Trainer: Utenti attivi per '{0}' impostati a {1}!"
+AIBankruptMessageKey                "Bankrupt AI" # Placeholder
+CompanyNotFoundMessageKey           "Trainer: Azienda '{0}' non trovata!"
+CannotTakeoverOwnCompanyMessageKey  "Trainer: Impossibile acquisire la propria azienda!"
+CannotBuyoutCompanyMessageKey       "Trainer: L'azienda '{0}' non può essere acquistata (già posseduta, troppo costosa o altra ragione)."
+CompanyTakenOverMessageKey          "Trainer: L'azienda '{0}' è stata acquisita!"
+CannotSubsidiaryOwnCompanyMessageKey "Trainer: Impossibile rendere la propria azienda una filiale!"
+AlreadySubsidiaryMessageKey         "Trainer: L'azienda '{0}' è già una tua filiale!"
+SubsidiaryMadeMessageKey            "Trainer: L'azienda '{0}' è ora una tua filiale!"
+CannotBankruptOwnCompanyMessageKey  "Trainer: Impossibile forzare il fallimento della propria azienda!"
+CompanyBankruptStatusMessageKey     "Trainer: L'azienda '{0}' è ora {1}!"
+EmployeeAgeResetMessageKey          "Trainer: L'età dei dipendenti è stata resettata!"
+AllEmployeesMaxSkilledMessageKey    "Trainer: Tutti i dipendenti hanno ora abilità massime!"
+LeadersHRSetMessageKey              "Trainer: Tutti i leader hanno ora HR!"
+EmployeeSkillsSetMessageKey         "Trainer: Abilità/specializzazioni dipendente impostate!"
+EmployeeBaseSkillsSetMessageKey     "Trainer: Abilità base dipendente impostate!"
+DiscordInviteMessageKey             "Unisciti al nostro server Discord\n{0}"
+MonthDaysRestartWarningKey          "Hai cambiato i giorni per mese. Riavvia il gioco."
+AlphaProductNotFoundMessageKey      "Trainer: Prodotto Alpha '{0}' (non in beta) non trovato."
+BetaProductNotFoundMessageKey       "Trainer: Prodotto Alpha '{0}' in beta non trovato."
+ActiveAlphaProductNotFoundMessageKey "Trainer: Prodotto Alpha attivo '{0}' non trovato."
+ProductNotFoundMessageKey           "Trainer: Prodotto '{0}' non trovato."
+
+
+# Dialog Prompts
+MonthDaysPromptKey                  "Quanti giorni per mese vuoi?"
+AddMoneyPromptKey                   "Quanto denaro vuoi aggiungere?"
+AreYouSurePromptKey                 "Sei sicuro di voler {0}?"
+MaxRepConfirmActionKey              "massimizzare tutte le reputazioni aziendali"
+AddQualityPromptKey                 "Inserisci il nome del prodotto in alpha (non beta):"
+FixBugsPromptKey                    "Inserisci il nome del prodotto (in Beta):"
+MaxFollowersPromptKey               "Inserisci il nome del prodotto (in Alpha):"
+SetPriceNamePromptKey               "Inserisci il nome del prodotto:"
+SetPriceAmountPromptKey             "Inserisci il nuovo prezzo per '{0}':"
+SetStockNamePromptKey               "Inserisci il nome del prodotto:"
+SetStockAmountPromptKey             "Inserisci il nuovo stock per '{0}':"
+SetActiveUsersNamePromptKey         "Inserisci il nome del prodotto:"
+SetActiveUsersAmountPromptKey       "Inserisci il nuovo numero di utenti attivi per '{0}':"
+TakeoverCompanyNamePromptKey        "Inserisci il nome dell'azienda:"
+SubsidiaryNamePromptKey             "Inserisci il nome dell'azienda:"
+ForceBankruptPromptKey              "Inserisci il nome dell'azienda:"
+SetSkillPromptKey                   "Quante stelle di specializzazione vuoi?\nMin = -3, Max = 3"
+SetBaseSkillPromptKey               "Quanta abilità base vuoi?\nMin = 0, Max = 1.0"
+SetLeadSpecPromptKey                "Quanta Spec. Leader vuoi?\nMin = 0, Max = 1.0"
+
+
+# Error Messages
+InvalidInputErrorKey                "Input non valido!"
+SelectEmployeeErrorKey              "Seleziona uno o più dipendenti."
+SelectRoleErrorKey                  "Seleziona uno o più ruoli."
+SelectSpecializationErrorKey        "Seleziona una o più specializzazioni."
+InvalidSkillAmountErrorKey          "Input non valido!\nInput consentiti: -3, -2, -1, 1, 2, 3"
+InvalidBaseSkillAmountErrorKey      "Input non valido. Inserisci un numero tra 0.0 e 1.0."
+SelectLeadSpecErrorKey              "Seleziona una o più Spec. Leader."
+InvalidLeadSpecAmountErrorKey       "Input non valido. Inserisci un numero tra 0.0 e 1.0."
+InvalidInputMinValueErrorKey        "Input non valido!\nIl valore minimo è {0}"
+InvalidInputMaxValueErrorKey        "Input non valido!\nIl valore massimo è {0}" 

@@ -56,3 +56,196 @@ MoreInspiration                     "更多灵感[测试]"
 MoreCreativity                      "更多创造力[测试]"
 ExtendDeadline                      "延长期限"
 DisableFurnitureStealing            "禁用家具被窃"
+
+# Window Titles
+EmployeeSkillChangeTitleKey         "员工技能更改，作者：Trawis" # Placeholder
+EditTraitsTitleKey                  "编辑{0}的特质" # Placeholder
+EditTraitsDefaultTitleKey          "编辑特质" # Placeholder
+EditDemandsTitleKey                 "编辑{0}的需求" # Placeholder
+EditDemandsDefaultTitleKey         "编辑需求" # Placeholder
+EditLeadSpecTitleKey                "编辑{0}的领导专业" # Placeholder
+EditLeadSpecDefaultTitleKey        "编辑领导专业" # Placeholder
+TakeoverCompanyTitleKey             "收购公司"
+SubsidiaryTitleKey                  "子公司" # Text might need update to 'Make Subsidiary'
+ForceBankruptTitleKey               "破产" # Text might need update to 'Toggle Force Bankrupt'
+MonthDaysTitleKey                   "每月天数"
+AddMoneyTitleKey                    "加钱"
+ConfirmationTitleKey                "Confirmation" # Placeholder
+AddQualityTitleKey                  "Add Quality (Test)" # Placeholder
+FixBugsTitleKey                     "修复所有Bug"
+MaxFollowersTitleKey                "最大粉丝数"
+SetPriceNameTitleKey                "设置产品价格"
+SetPriceAmountTitleKey              "Set Product Price - Price" # Placeholder
+SetStockNameTitleKey                "设置产品库存"
+SetStockAmountTitleKey              "Set Product Stock - Amount" # Placeholder
+SetActiveUsersNameTitleKey          "设置活跃用户"
+SetActiveUsersAmountTitleKey        "Set Active Users - Amount" # Placeholder
+SetSkillTitleKey                    "Set Skill Title" # Placeholder
+SetBaseSkillTitleKey                "Set Base Skill Title" # Placeholder
+SetLeadSpecTitleKey                 "Set LeadSpec Title" # Placeholder
+
+
+# Labels
+RolesKey                            "Roles" # Placeholder
+SpecializationsKey                 "Specializations" # Placeholder
+GoodTraitsKey                       "Good" # Placeholder
+NeutralTraitsKey                    "Neutral" # Placeholder
+BadTraitsKey                        "Bad" # Placeholder
+DemandsKey                          "Demands" # Placeholder
+LeadSpecKey                         "Lead Spec" # Placeholder
+OptionsScreenInfoKey                "Please load the game and press 'Trainer' button." # Placeholder
+EfficiencyKey                       "Efficiency" # Placeholder
+LeadEfficiencyKey                   "Lead Efficiency" # Placeholder
+SkillChangeKey                      "Skill Change" # Placeholder
+
+
+# Action Buttons
+AddMoneyKey                         "加钱"
+MaxReputationKey                    "最高声望"
+SetProductPriceKey                  "设置产品价格"
+SetProductStockKey                  "设置产品库存"
+AddActiveUsersKey                   "设置活跃用户"
+MaxFollowersKey                     "最大粉丝数"
+FixBugsKey                          "修复所有Bug"
+TakeoverCompanyKey                  "收购公司"
+SubDCompanyKey                      "子公司"
+ForceBankruptKey                    "破产"
+MonthDaysKey                        "每月天数"
+ClearLoansKey                       "还清所有贷款"
+MaxMarketRecognitionKey             "最大市场认可度"
+ResetAgeKey                         "重置员工年龄"
+SellProductStockKey                 "出售产品库存"
+UnlockFurnitureKey                  "解锁所有家具"
+UnlockAllSpaceKey                   "解锁所有房间"
+UnlockAndClaimRewardsKey            "Unlock and Claim Rewards" # Placeholder
+ExtendDeadlineKey                   "延长期限"
+TestKey                             "Test" # Placeholder
+TestButtonKey                       "Test Button" # Placeholder
+HREmployeesKey                      "Set HR Spec. on Leaders" # Placeholder
+EmployeesToMaxKey                   "员工最大技能" # Text might need update to 'Max All Employee Skills'
+SetSkillsKey                       "Set Skills" # Placeholder
+SetBaseSkillsKey                   "Set Base Skills" # Placeholder
+SetLeadSpecKey                     "Set LeadSpec" # Placeholder
+AllKey                              "All" # Placeholder
+NoneKey                             "None" # Placeholder
+RefreshKey                          "Refresh" # Placeholder
+EmployeeSkillButtonKey              "Skill Change" # Placeholder
+
+
+# Toggle Options
+NoNeedsKey                          "没有需求"
+NoStressKey                         "没有压力"
+FreeEmployeesKey                    "免费公司职员"
+FreeStaffKey                        "免费杂货人员"
+FullSatisfactionKey                 "满意度全满"
+LockAgeKey                          "锁定员工年龄"
+NoVacationKey                       "员工不会度假"
+NoSicknessKey                       "员工不会生病"
+FullEnvironmentKey                  "环境满意度最高"
+FullRoomBrightnessKey               "灯光充足"
+TemperatureLockKey                  "锁定温度为21度"
+NoMaintenanceKey                    "无需维护"
+NoiseReductionKey                   "没有噪音"
+CleanRoomsKey                       "房间不会脏"
+NoEducationCostKey                  "免费培训"
+DisableFiresKey                     "不会着火"
+AutoEndDesignKey                    "自动完成开放"
+AutoEndResearchKey                  "自动完成研究"
+AutoEndPatentKey                    "自动完成专利"
+IncreaseWalkSpeedKey                "加快移动速度"
+FreePrintKey                        "免费打印"
+NoWaterElectricityKey               "免费水电费"
+IncreaseBookshelfSkillKey           "加强书架能力"
+IncreaseCourierCapacityKey          "增加快递容量"
+IncreasePrintSpeedKey               "加快打印速度"
+MoreHostingDealsKey                 "更多合约"
+ReduceISPCostKey                    "降低网络成本"
+NoServerCostKey                     "没有服务器成本"
+ReduceExpansionCostKey              "降低扩展成本"
+ReduceBoxPriceKey                   "降低包装成本"
+DisableFireInspectionKey            "Disable Fire Inspection" # Placeholder
+DisableForcePauseKey                "Disable Force Pause" # Placeholder
+DisableForceFreezeKey               "Disable Force Freeze" # Placeholder
+AutoAcceptHostingDealsKey           "Auto Accept Hosting Deals" # Placeholder
+DisableBurglarsKey                  "Disable Burglars" # Placeholder
+ExperimentalKey                     "Experimental Features" # Placeholder
+MoreCreativityKey                   "更多创造力[测试]"
+DisableFurnitureStealingKey         "禁用家具被窃"
+AutoResearchStartKey                "Auto Research Start" # Placeholder
+DigitalDistributionMonopolKey       "Digital Distribution Monopol" # Placeholder
+
+
+# Messages
+AllLoansClearedMessageKey           "Trainer: All loans are cleared!" # Placeholder
+AllPlotsUnlockedMessageKey          "Trainer: All plots has been unlocked!" # Placeholder
+AllFurnitureUnlockedMessageKey      "Trainer: All furniture has been unlocked!" # Placeholder
+DeadlinesExtendedMessageKey         "Trainer: Deadlines extended by 1 year for active contracts!" # Placeholder
+MoneyAddedMessageKey                "Trainer: Money has been added in category Deals!" # Placeholder
+MaxReputationAppliedMessageKey      "Trainer: Max reputation is applied to all categories" # Placeholder
+MaxMarketRecognitionAppliedMessageKey "Trainer: Max market recognition is applied to all software types and categories." # Placeholder
+AllRewardsUnlockedMessageKey        "Trainer: All rewards are unlocked and claimed." # Placeholder
+DesignDocIterationTestExecutedMessageKey "Trainer: Test action executed (Design Doc Iteration)." # Placeholder
+AddQualityTestExecutedMessageKey    "Trainer: Test action executed (Add Quality) for '{0}'." # Placeholder
+SellStockMessageKey                 "Stock of products with no active users were sold at half the price." # Placeholder
+RemoveSoftDisabledMessageKey        "RemoveSoft function is currently disabled (marked as broken in original code)." # Placeholder
+BugsFixedMessageKey                 "Trainer: All bugs fixed for '{0}'!" # Placeholder
+FollowersMaxedMessageKey            "Trainer: Followers maxed for '{0}'!" # Placeholder
+PriceSetMessageKey                  "Trainer: Price for '{0}' set to {1:C}!" # Placeholder
+StockSetMessageKey                  "Trainer: Stock for '{0}' set to {1}!" # Placeholder
+ActiveUsersSetMessageKey            "Trainer: Active users for '{0}' set to {1}!" # Placeholder
+AIBankruptMessageKey                "AI全部破产" # Text likely needs prefix 'Trainer: '
+CompanyNotFoundMessageKey           "Trainer: Company '{0}' not found!" # Placeholder
+CannotTakeoverOwnCompanyMessageKey  "Trainer: Cannot takeover your own company!" # Placeholder
+CannotBuyoutCompanyMessageKey       "Trainer: Company '{0}' can't be bought out (already owned, too expensive, or other reason)." # Placeholder
+CompanyTakenOverMessageKey          "Trainer: Company '{0}' has been taken over!" # Placeholder
+CannotSubsidiaryOwnCompanyMessageKey "Trainer: Cannot make your own company a subsidiary!" # Placeholder
+AlreadySubsidiaryMessageKey         "Trainer: Company '{0}' is already your subsidiary!" # Placeholder
+SubsidiaryMadeMessageKey            "Trainer: Company '{0}' is now your subsidiary!" # Placeholder
+CannotBankruptOwnCompanyMessageKey  "Trainer: Cannot force bankrupt your own company!" # Placeholder
+CompanyBankruptStatusMessageKey     "Trainer: Company '{0}' is now {1}!" # Placeholder
+EmployeeAgeResetMessageKey          "Trainer: Employees age has been reset!" # Placeholder
+AllEmployeesMaxSkilledMessageKey    "Trainer: All employees are now max skilled!" # Placeholder
+LeadersHRSetMessageKey              "Trainer: All leaders are now HRed!" # Placeholder
+EmployeeSkillsSetMessageKey         "Trainer: Employee skills/specializations are set!" # Placeholder
+EmployeeBaseSkillsSetMessageKey     "Trainer: Employee base skills set!" # Placeholder
+DiscordInviteMessageKey             "Join us on our discord server\n{0}" # Placeholder
+MonthDaysRestartWarningKey          "You have changed days per month. Please restart the game." # Placeholder
+AlphaProductNotFoundMessageKey      "Trainer: Alpha product '{0}' (not in beta) not found." # Placeholder
+BetaProductNotFoundMessageKey       "Trainer: Alpha product '{0}' in beta not found." # Placeholder
+ActiveAlphaProductNotFoundMessageKey "Trainer: Active alpha product '{0}' not found." # Placeholder
+ProductNotFoundMessageKey           "Trainer: Product '{0}' not found." # Placeholder
+
+
+# Dialog Prompts
+MonthDaysPromptKey                  "每月天数"
+AddMoneyPromptKey                   "加钱"
+AreYouSurePromptKey                 "Are you sure you want to {0}?" # Placeholder
+MaxRepConfirmActionKey              "max out all business reputations" # Placeholder
+AddQualityPromptKey                 "Type product name in alpha (not beta):" # Placeholder
+FixBugsPromptKey                    "修复所有Bug"
+MaxFollowersPromptKey               "最大粉丝数"
+SetPriceNamePromptKey               "设置产品价格"
+SetPriceAmountPromptKey             "Type new price for '{0}':" # Placeholder
+SetStockNamePromptKey               "设置产品库存"
+SetStockAmountPromptKey             "Type new stock for '{0}':" # Placeholder
+SetActiveUsersNamePromptKey         "设置活跃用户"
+SetActiveUsersAmountPromptKey       "Type new active user count for '{0}':" # Placeholder
+TakeoverCompanyNamePromptKey        "收购公司"
+SubsidiaryNamePromptKey             "子公司"
+ForceBankruptPromptKey              "破产"
+SetSkillPromptKey                   "How many specialization stars do you want?\nMin = -3, Max = 3" # Placeholder
+SetBaseSkillPromptKey               "How many base skill do you want?\nMin = 0, Max = 1.0" # Placeholder
+SetLeadSpecPromptKey                "How many LeadSpec do you want?\nMin = 0, Max = 1.0" # Placeholder
+
+
+# Error Messages
+InvalidInputErrorKey                "Invalid input!" # Placeholder
+SelectEmployeeErrorKey              "Select one or more employees." # Placeholder
+SelectRoleErrorKey                  "Select one or more roles." # Placeholder
+SelectSpecializationErrorKey        "Select one or more specializations." # Placeholder
+InvalidSkillAmountErrorKey          "Invalid input!\nAllowed inputs are: -3, -2, -1, 1, 2, 3" # Placeholder
+InvalidBaseSkillAmountErrorKey      "Invalid input. Please enter a number between 0.0 and 1.0." # Placeholder
+SelectLeadSpecErrorKey              "Select one or more LeadSpec." # Placeholder
+InvalidLeadSpecAmountErrorKey       "Invalid input. Please enter a number between 0.0 and 1.0." # Placeholder
+InvalidInputMinValueErrorKey        "Invalid input!\nmin value is {0}" # Placeholder
+InvalidInputMaxValueErrorKey        "Invalid input!\nmax value is {0}" # Placeholder

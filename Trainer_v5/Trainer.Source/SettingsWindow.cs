@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -68,7 +68,6 @@ namespace Trainer_v5
 			column1.Add(UIHelper.CreateButton("ClearAllLoans".LocDef("Clear all loans"), TrainerBehaviour.ClearLoans));
 			column1.Add(UIHelper.CreateButton("MaxMarketRecognition".LocDef("Max market recognition"), TrainerBehaviour.MaxMarketRecognition));
 			column1.Add(UIHelper.CreateButton("MaxSkill".LocDef("Max Skill of employees"), TrainerBehaviour.EmployeesToMax));
-			//column1.Add(UIHelper.CreateButton("RemoveProducts".LocDef("Remove Products"), TrainerBehaviour.RemoveSoft));
 			column1.Add(UIHelper.CreateButton("ResetAge".LocDef("Reset age of employees"), TrainerBehaviour.ResetAgeOfEmployees));
 			column1.Add(UIHelper.CreateButton("SellProductsStock".LocDef("Sell products stock"), TrainerBehaviour.SellProductStock));
 			column1.Add(UIHelper.CreateButton("UnlockAllFurniture".LocDef("Unlock all furniture"), TrainerBehaviour.UnlockFurniture));
@@ -123,6 +122,7 @@ namespace Trainer_v5
 			column3.Add(UIHelper.CreateToggle("AutoDesignEnd".LocDef("Auto Design End"), settings.Get("AutoEndDesign"), a => settings.Toggle("AutoEndDesign")));
 			column3.Add(UIHelper.CreateToggle("AutoResearchEnd".LocDef("Auto Research End"), settings.Get("AutoEndResearch"), a => settings.Toggle("AutoEndResearch")));
 			column3.Add(UIHelper.CreateToggle("AutoPatentEnd".LocDef("Auto Patent End"), settings.Get("AutoEndPatent"), a => settings.Toggle("AutoEndPatent")));
+			column3.Add(UIHelper.CreateToggle("InstantResearch".LocDef("Instant Research"), settings.Get("InstantResearch"), a => settings.Toggle("InstantResearch")));
 			column3.Add(UIHelper.CreateToggle("IncreaseWalkSpeed".LocDef("Increase Walk Speed"), settings.Get("IncreaseWalkSpeed"), a => settings.Toggle("IncreaseWalkSpeed")));
 			column3.Add(UIHelper.CreateToggle("DisableFurnitureStealing".LocDef("Disable Furniture Stealing"), settings.Get("DisableFurnitureStealing"), a => settings.Toggle("DisableFurnitureStealing")));
 
@@ -147,7 +147,6 @@ namespace Trainer_v5
 			column4.Add(UIHelper.CreateToggle("ReduceInternetCost".LocDef("Reduce Internet Cost"), settings.Get("ReduceISPCost"), a => settings.Toggle("ReduceISPCost")));
 			column4.Add(UIHelper.CreateToggle("NoServerCost".LocDef("No Server Cost"), settings.Get("NoServerCost"), a => settings.Toggle("NoServerCost")));
 			column4.Add(UIHelper.CreateToggle("ReduceExpansionCost".LocDef("Reduce Expansion Cost"), settings.Get("ReduceExpansionCost"), a => settings.Toggle("ReduceExpansionCost")));
-			//column4.Add(UIHelper.CreateToggle("ReduceBoxPrice".LocDef("Reduce Box Price"), settings.Get("ReduceBoxPrice"), a => settings.Toggle("ReduceBoxPrice")));
 			column4.Add(UIHelper.CreateToggle("DisableForcePause".LocDef("Disable Force Pause"), settings.Get("DisableForcePause"), a => settings.Toggle("DisableForcePause")));
 			column4.Add(UIHelper.CreateToggle("DisableForceFreeze".LocDef("Disable Force Freeze"), settings.Get("DisableForceFreeze"), a => settings.Toggle("DisableForceFreeze")));
 			column4.Add(UIHelper.CreateToggle("AutoAcceptHostingDeals".LocDef("Auto Accept Hosting Deals"), settings.Get("AutoAcceptHostingDeals"), a => settings.Toggle("AutoAcceptHostingDeals")));

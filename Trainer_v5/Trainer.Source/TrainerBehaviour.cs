@@ -155,7 +155,6 @@ namespace Trainer_v5
 					furniture.AuraValues[1] = 0.75f;
 				}
 
-				//TODO: else 0.25
 				if (Helpers.GetProperty(TrainerSettings, "NoMaintenance"))
 				{
 					switch (furniture.Type)
@@ -233,7 +232,6 @@ namespace Trainer_v5
 					actor.GermAdd = 0f;
 					actor.GermCount = 0f;
 					actor.SickDays = 0;
-					//actor.WasSick = true;
 				}
 
 				if (Helpers.GetProperty(TrainerSettings, "NoStress"))
@@ -356,6 +354,19 @@ namespace Trainer_v5
 				});
 			}
 
+			if (Helpers.GetProperty(TrainerSettings, "InstantResearch"))
+			{
+				foreach (var work in Settings.MyCompany.WorkItems.OfType<ResearchWork>())
+				{
+					work.Progress = 1f;
+				}
+
+				foreach (var patent in Settings.MyCompany.WorkItems.OfType<LegalWork>().Where(lw => lw.Type == LegalWork.WorkType.Patent))
+				{
+					patent.Done = 1000f;
+				}
+			}
+
 			if (Helpers.GetProperty(TrainerSettings, "AutoEndResearch"))
 			{
 				var researchWorks = Settings.MyCompany.WorkItems
@@ -391,7 +402,6 @@ namespace Trainer_v5
 				});
 			}
 
-			//TODO: add printspeed and printprice when it's disabled (else)
 			if (Helpers.GetProperty(TrainerSettings, "FreePrint"))
 			{
 				Settings.ProductPrinters.ForEach(p => p.PrintPrice = 0f);
@@ -501,23 +511,6 @@ namespace Trainer_v5
 #endif
 			}
 
-			/*
-			 foreach (Actor actor in GameSettings.Instance.sActorManager.Actors)
-			{
-			  actor.employee.BirthDate += months;
-			  actor.employee.Hired += months;
-			  actor.employee.LastWage += months;
-			  actor.employee.LastInpirationUse += months;
-			  actor.LastMeeting += months;
-			  actor.MeetingTime += months;
-			  actor.DriveTime += months;
-			  actor.DespawnTime += months;
-			  actor.LeaveTime += months;
-			  actor.LastSocial += months;
-			  actor.ForgetfulETA += months;
-			}
-			 * */
-
 			if (Helpers.GetProperty(TrainerSettings, "AutoAcceptHostingDeals"))
 			{
 #if DEBUG || SWINCBETA1_7 || SWINCBETA1_8 || SWINCBETA1_9 || SWINCBETA1_10
@@ -548,11 +541,9 @@ namespace Trainer_v5
 #endif
 			}
 
-			GameSettings.MaxFloor = 100; //10 default
+			GameSettings.MaxFloor = 100;
 			AI.MaxBoxes = Helpers.GetProperty(TrainerSettings, "IncreaseCourierCapacity") ? 108 : 54;
 			AI.MaxBoxCarry = Helpers.GetProperty(TrainerSettings, "IncreaseCourierCapacity") ? 18 : 9;
-			//Not working
-			//AI.BoxPrice = Helpers.GetProperty(TrainerSettings, "ReduceBoxPrice") ? 62.5f : 125;
 			Settings.Environment.ISPCostFactor = Helpers.GetProperty(TrainerSettings, "ReduceISPCost") ? _defaultEnvironmentISPCostFactor / 2f : _defaultEnvironmentISPCostFactor;
 			Settings.ExpansionCost = Helpers.GetProperty(TrainerSettings, "ReduceExpansionCost") ? 175f : 350f;
 		}
@@ -628,8 +619,6 @@ namespace Trainer_v5
 				{
 					foreach (var role in selectedRoles)
 					{
-						//actor.employee.ChangeSkillDirect(role.Key.ToEmployeeRole(), 1f);
-
 						foreach (var specialization in selectedSpecializations)
 						{
 							actor.employee.AddSpecialization(role.Key.ToEmployeeRole(), specialization.Key, false, true, amount);
@@ -672,7 +661,7 @@ namespace Trainer_v5
 		public static void PushDeal()
 		{
 			SoftwareProduct[] Products = Settings.simulation.GetAllProducts(false).Where(pr =>
-				  MarketSimulation.Active.SoftwareTypes.ContainsKey(pr.Type.ToString())
+				   MarketSimulation.Active.SoftwareTypes.ContainsKey(pr.Type.ToString())
 				&& pr.Userbase > 0
 				&& pr.DevCompany.Name != Settings.MyCompany.Name
 				&& pr.ServerReq > 0
@@ -782,34 +771,6 @@ namespace Trainer_v5
 		public static void RemoveSoft()
 		{
 			return;
-
-			//currently broken
-			SDateTime time = new SDateTime(1, 70);
-			CompanyType type = new CompanyType();
-			var dict = new Dictionary<string, string[]>();
-			SimulatedCompany simComp = new SimulatedCompany("Trainer Company", time, type, dict, 0f, MarketSimulation.Active);
-			simComp.CanMakeTransaction(2139095030f);
-
-			SoftwareProduct[] Products = Settings.simulation.GetAllProducts(true).Where(product =>
-				product.DevCompany == Settings.MyCompany &&
-				product.Inventor != Settings.MyCompany.Name).ToArray();
-
-			if (Products.Length == 0)
-			{
-				return;
-			}
-
-			for (int i = 0; i < Products.Length; i++)
-			{
-				SoftwareProduct Product = Products[i];
-
-				Product.Userbase = 0;
-				Product.PhysicalCopies = 0;
-				Product.Marketing = 0;
-				Product.Trade(simComp, time);
-			}
-
-			WindowManager.SpawnDialog("Products that you didn't invent are removed.", false, DialogWindow.DialogType.Information);
 		}
 
 		public static void ResetAgeOfEmployees()
@@ -1065,10 +1026,10 @@ namespace Trainer_v5
 			var simulatedCompanyWorth = simulatedCompany.GetPossibleStockWorth();
 
 			simulatedCompany.BuyOut(
-				new Company[] { Settings.MyCompany }, // companies buying out
-				false,                                // not broke
-				SDateTime.Now(),                      // current time
-				true                                  // can disconnect (default value)
+				new Company[] { Settings.MyCompany },
+				false,
+				SDateTime.Now(),
+				true
 			);
 
 			Settings.MyCompany.MakeTransaction(simulatedCompanyWorth, Company.TransactionCategory.Stocks, (string)null, false);
@@ -1225,12 +1186,8 @@ namespace Trainer_v5
 
 		#endregion
 
-		#region Overrides
+		public override void OnActivate() { }
 
-		public override void OnActivate() { /* Mandatory but not needed */ }
-
-		public override void OnDeactivate() { /* Mandatory but not needed */ }
-
-		#endregion
+		public override void OnDeactivate() { }
 	}
 }

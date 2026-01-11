@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using OrbCreationExtensions;
 
@@ -63,6 +63,7 @@ namespace Trainer_v5
 			{"AutoEndDesign", false},
 			{"AutoEndResearch", false},
 			{"AutoEndPatent", false},
+			{"InstantResearch", false},
 			{"ReduceBoxPrice", false},
 			{"DisableFurnitureStealing", false},
 			{"MoreInspiration", false},
